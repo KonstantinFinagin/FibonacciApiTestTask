@@ -6,8 +6,11 @@ using Serilog;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Linq;
 
 namespace Fibonacci.Common.Exceptions
 {
@@ -29,6 +32,27 @@ namespace Fibonacci.Common.Exceptions
                 await _next(context);
             }
             // TODO catch custom exceptions if needed
+
+            catch (FluentValidation.ValidationException exception)
+            {
+                Logger.Warning(exception, "ValidationException: {ErrorMessage}", exception.Message);
+
+                SetStatusCode(context, HttpStatusCode.BadRequest);
+
+                var modelStateDictionary = new ModelStateDictionary();
+
+                foreach (var error in exception.Errors)
+                {
+                    modelStateDictionary.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+
+                if (!exception.Errors.Any())
+                {
+                    modelStateDictionary.AddModelError("ValidationError", exception.Message);
+                }
+
+                await WriteToResponseAsync(context, new BadRequestExceptionResponse(modelStateDictionary));
+            }
 
             catch (Exception exception)
             {

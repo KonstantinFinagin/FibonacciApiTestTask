@@ -8,12 +8,12 @@ namespace Fibonacci.Api.Bll.Validation
     {
         public CalculateNextFibonacciRequestValidator()
         {
-            RuleFor(a => a.Value).Must(FibonacciCalculator.IsFibonacci).WithMessage("Please pass in a valid Fibonacci number");
-
             When(a => a.Value == 1, () =>
             {
                 RuleFor(a => a.PreviousValue).NotNull();
             });
+
+            RuleFor(a => a.Value).Must(FibonacciCalculator.IsFibonacci).WithMessage("Please pass in a valid Fibonacci number");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Fibonacci.Api.Contracts;
 using Fibonacci.Calculator;
 using Fibonacci.Common.Validation;
+using FluentValidation;
 using Serilog;
 
 namespace Fibonacci.Api.Bll
@@ -18,7 +19,7 @@ namespace Fibonacci.Api.Bll
 
         public async Task<CalculateResponse> GetNextFibonacciNumber(CalculateNextFibonacciRequest request)
         {
-            await _validatorsFactory.For<CalculateNextFibonacciRequest>().ValidateAsync(request);
+            await _validatorsFactory.For<CalculateNextFibonacciRequest>().ValidateAndThrowAsync(request);
 
             var nextFibonacci = FibonacciCalculator.NextFibonacci(request.Value, request.PreviousValue);
 

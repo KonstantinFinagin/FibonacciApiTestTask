@@ -41,6 +41,12 @@ namespace Fibonacci.Api.Bll
                 SessionId = request.SessionId
             };
 
+<<<<<<< HEAD
+            // notify via rabbit
+            await _notificationService.NotifyNextFibonacciCalculated(response);
+
+=======
+>>>>>>> 68be9a5c854e6a9c8c4d015e174c4506935d7a90
             return response;
         }
 

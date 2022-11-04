@@ -30,9 +30,5 @@
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mapping\" />
-  </ItemGroup>
-
 
 </Project>

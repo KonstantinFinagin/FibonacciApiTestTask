@@ -66,7 +66,7 @@ namespace Fibonacci.Common.Exceptions
 
             var correlationId = System.Diagnostics.Activity.Current?.RootId;
 
-            Logger.ForContext("FibonacciCorellationId", correlationId)
+            Logger.ForContext("CorellationId", correlationId)
                 .Error(exception, "Exception {ErrorId}: {ErrorMessage}", errorId, exception.Message);
 
             SetStatusCode(context, HttpStatusCode.InternalServerError);

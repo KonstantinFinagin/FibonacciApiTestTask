@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Sieve.Models;
 
 namespace Fibonacci.Api
 {
@@ -17,7 +16,7 @@ namespace Fibonacci.Api
         }
 
         public override string ServiceName => "Fibonacci API";
-        public override string Description => "Provides services for Fibonacci Number calculation";
+        public virtual string Description => "Provides services for Fibonacci Number calculation";
 
         public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -28,12 +27,12 @@ namespace Fibonacci.Api
         {
             base.ConfigureDependencyInjections(builder);
 
-            builder.RegisterModule<FibonacciServiceModule>();
+            builder.RegisterModule<FibonacciApiModule>();
         }
 
         protected override void ConfigureDataAccess(IServiceCollection services)
         {
-            // TODO register DB of needed
+            // TODO register DB if needed
         }
 
         protected override void ConfigureModelsMapping(IServiceCollection services)
@@ -43,7 +42,7 @@ namespace Fibonacci.Api
 
         protected override void ConfigureFilterProcessor(IServiceCollection services)
         {
-            services.Configure<SieveOptions>(Configuration.GetSection("Sieve"));
+            // TODO Sieve Processor if needed
         }
     }
 }

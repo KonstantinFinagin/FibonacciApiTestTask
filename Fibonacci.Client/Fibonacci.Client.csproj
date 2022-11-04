@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Listener\" />
-    <Folder Include="Task\" />
+    <PackageReference Include="Autofac" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fibonacci.Api.Contracts\Fibonacci.Api.Contracts.csproj" />
+    <ProjectReference Include="..\Fibonacci.Client.Bll\Fibonacci.Client.Bll.csproj" />
+    <ProjectReference Include="..\Fibonacci.Common\Fibonacci.Common.csproj" />
   </ItemGroup>
 
 </Project>

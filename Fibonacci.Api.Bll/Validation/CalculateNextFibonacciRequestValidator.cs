@@ -1,4 +1,5 @@
 ﻿using Fibonacci.Api.Contracts;
+using Fibonacci.Api.Contracts.Requests;
 using Fibonacci.Calculator;
 using FluentValidation;
 

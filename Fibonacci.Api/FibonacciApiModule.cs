@@ -6,7 +6,7 @@ using Fibonacci.Common.Validation;
 
 namespace Fibonacci.Api
 {
-    public class FibonacciServiceModule : Module
+    public class FibonacciApiModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -15,7 +15,8 @@ namespace Fibonacci.Api
             builder.RegisterModule(new ValidatorsModule(typeof(CalculateNextFibonacciRequestValidator).Assembly));
 
             builder.RegisterAssemblyTypes(typeof(FibonacciMappingProfile).Assembly)
-                .Where(t => t.Name.EndsWith("Service") || t.Name.EndsWith("Factory"))
+                .Where(t => t.Name.EndsWith("Service") 
+                         || t.Name.EndsWith("Factory"))
                     .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }

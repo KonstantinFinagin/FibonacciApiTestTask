@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Fibonacci.Api.Contracts;
+using Fibonacci.Api.Contracts.Responses;
 
 namespace Fibonacci.Api.Bll.Notification
 {
     public interface INotificationService
     {
+        Task NotifyNExtFibonacciCalculated(CalculateNextFibonacciResponse nextFibonacciResponse);
     }
 }

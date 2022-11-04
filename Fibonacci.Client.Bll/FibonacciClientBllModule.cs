@@ -1,0 +1,19 @@
+﻿using Autofac;
+using Fibonacci.Client.Bll.Services;
+using Module = Autofac.Module;
+
+namespace Fibonacci.Client.Bll
+{
+    public class FibonacciClientBllModule : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(typeof(MessageService).Assembly)
+                .Where(t => t.Name.EndsWith("Factory") 
+                            || t.Name.EndsWith("Service") 
+                            || t.Name.EndsWith("Processor"))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+        }
+    }
+}

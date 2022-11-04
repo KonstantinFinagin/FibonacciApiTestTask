@@ -31,8 +31,6 @@ namespace Fibonacci.Common
 
         public abstract string ServiceName { get; }
 
-        public abstract string Description { get; }
-
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddResponseCompression();
@@ -51,8 +49,6 @@ namespace Fibonacci.Common
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddHttpContextAccessor();
             services.AddHttpClient();
-
-            services.AddApplicationInsightsTelemetry(options => Configuration.GetSection("ApplicationInsights").Bind(options));
 
             services.AddHealthChecks();
 

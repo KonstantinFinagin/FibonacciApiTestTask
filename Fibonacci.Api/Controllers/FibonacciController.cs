@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Fibonacci.Api.Contracts;
+using Fibonacci.Api.Contracts.Requests;
+using Fibonacci.Api.Contracts.Responses;
+using Fibonacci.Common.Mvc.Filters;
 
 namespace Fibonacci.Api.Controllers
 {   
@@ -26,12 +29,26 @@ namespace Fibonacci.Api.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(CalculateResponse), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetContracts([FromQuery] CalculateNextFibonacciRequest request)
+        [ProducesResponseType(typeof(CalculateNextFibonacciResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> CalculateNextFibonacci([FromQuery] CalculateNextFibonacciRequest request)
         {
-            var result = await _service.GetNextFibonacciNumber(request);
+            var result = await _service.CalculateNextFibonacciNumber(request);
             return Ok(result);
         }
 
+        /// <summary>
+        ///     Command to calculate next Fibonacci number and notify via rabbitMQ
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("rpc")]
+        [RpcCallFilter]
+        [ProducesResponseType(typeof(CalculateCommandAcceptedResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> CalculateNextFibonacciRpc([FromQuery] CalculateNextFibonacciRequest request)
+        {
+            var result = await _service.CalculateNextFibonacciNumber(request);
+            return Ok(result);
+        }
     }
 }

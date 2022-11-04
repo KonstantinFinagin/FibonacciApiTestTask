@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Fibonacci.Common\Fibonacci.Common.csproj" />
-  </ItemGroup>
-
 </Project>

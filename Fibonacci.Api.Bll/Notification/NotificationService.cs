@@ -23,8 +23,17 @@ namespace Fibonacci.Api.Bll.Notification
 
             var connectionString = $"host={host};virtualhost={virtualHost};username={username};password={password}";
 
-            _bus = RabbitHutch.CreateBus(connectionString).Advanced;
-            _exchange = _bus.ExchangeDeclare(ExchangeNameConstants.CrmExchange, ExchangeType.Direct);
+            try
+            {
+                _bus = RabbitHutch.CreateBus(connectionString).Advanced;
+                _exchange = _bus.ExchangeDeclare(ExchangeNameConstants.CrmExchange, ExchangeType.Fanout);
+            }
+            catch (Exception ex)
+            {
+                // TODO temporary exception, if needed - introduce exception handling mechanism
+                throw new ApplicationException("Error initializing NotificationService. Before running the solution please create the following in RabbitMq: " +
+                                               "Fibonacci.Exchange (fan-out) with a Fibonacci.Queue under the default guest/guest", ex);
+            }
         }
 
         public async Task NotifyNextFibonacciCalculated(CalculateNextFibonacciResponse nextFibonacciResponse)
@@ -39,6 +48,8 @@ namespace Fibonacci.Api.Bll.Notification
             };
 
             var m = new Message<NextFibonacciCalculatedResultMessage>(message);
+
+            // TODO implement bus re-init / retry strategy if communication fails depending on exception types
             await _bus.PublishAsync(_exchange, string.Empty, true, m);
         }
     }

@@ -52,7 +52,7 @@ namespace Fibonacci.Api.Bll
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<CalculateCommandAcceptedResponse> CalculateNextFibonacciNumberRpc(CalculateNextFibonacciRequest request)
+        public async Task<CalculateCommandAcceptedResponse> CalculateNextFibonacciNumberRpc(CalculateNextFibonacciRequest request)
         {
             var nextFibonacci = FibonacciCalculator.NextFibonacci(request.Value, request.PreviousValue);
 
@@ -63,7 +63,16 @@ namespace Fibonacci.Api.Bll
                 TaskId = request.TaskId
             };
 
-            return Task.FromResult(response);
+            var messageResponse = new CalculateNextFibonacciResponse()
+            {
+                Previous = request.Value,
+                Result = nextFibonacci,
+                TaskId = request.TaskId,
+                SessionId = request.SessionId
+            };
+
+            await _notificationService.NotifyNextFibonacciCalculated(messageResponse);
+            return response;
         }
     }
 }

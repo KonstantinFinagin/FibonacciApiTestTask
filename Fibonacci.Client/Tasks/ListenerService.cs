@@ -6,15 +6,21 @@ namespace Fibonacci.Client.Tasks
 {
     public class ListenerService : IListenerService
     {
-        private readonly ILogger _logger = Log.ForContext<ListenerService>();
+        private readonly IMessageService _messageService;
+        private readonly IConfiguration _configuration;
+        private readonly ILogger _logger;
 
-        public ListenerService(IMessageService messageService, IConfiguration configuration)
+        public ListenerService(IMessageService messageService, IConfiguration configuration, ILogger logger)
         {
-
+            _messageService = messageService;
+            _configuration = configuration;
+            _logger = logger;
         }
 
         public async Task StartAsync(int nParallelRequests)
         {
+
+
 
         }
 

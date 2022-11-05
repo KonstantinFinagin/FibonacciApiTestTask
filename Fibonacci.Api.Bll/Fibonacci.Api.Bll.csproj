@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EasyNetQ" Version="7.3.0" />
-    <PackageReference Include="EasyNetQ.Serialization.SystemTextJson" Version="7.3.0" />
-    <PackageReference Include="FluentValidation" Version="11.2.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Fibonacci.Api.Contracts\Fibonacci.Api.Contracts.csproj" />
     <ProjectReference Include="..\Fibonacci.Calculator\Fibonacci.Calculator.csproj" />
     <ProjectReference Include="..\Fibonacci.Client.Contracts\Fibonacci.Client.Contracts.csproj" />

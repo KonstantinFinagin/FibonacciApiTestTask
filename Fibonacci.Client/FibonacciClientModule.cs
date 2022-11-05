@@ -33,7 +33,7 @@ namespace Fibonacci.Client
                                           $"virtualHost={conf["VirtualHost"]};" +
                                           $"username={conf["UserName"]};" +
                                           $"password={conf["Password"]};" +
-                                          $"prefetchCount={conf["Prefetch"]}";
+                                          $"prefetchCount=1000";
 
                 return connectionStringParser.Parse(connectionString);
             });

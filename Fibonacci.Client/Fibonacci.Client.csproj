@@ -19,8 +19,6 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.4.0" />
-    <PackageReference Include="AutoMapper.Contrib.Autofac.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="EasyNetQ.DI.Autofac" Version="7.3.0" />
   </ItemGroup>
 
   <ItemGroup>

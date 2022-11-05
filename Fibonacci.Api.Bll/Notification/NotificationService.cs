@@ -1,4 +1,5 @@
-﻿using EasyNetQ;
+﻿using AutoMapper;
+using EasyNetQ;
 using EasyNetQ.Topology;
 using Fibonacci.Api.Contracts.Responses;
 using Fibonacci.Client.Contracts;
@@ -6,14 +7,19 @@ using Fibonacci.Common.Constants;
 
 namespace Fibonacci.Api.Bll.Notification
 {
+    /// <summary>
+    ///     Notify consumers via service bus
+    /// </summary>
     public class NotificationService : INotificationService
     {
         private readonly IAdvancedBus _bus;
+        private readonly IMapper _mapper;
         private readonly Exchange _exchange;
 
-        public NotificationService(IAdvancedBus bus)
+        public NotificationService(IAdvancedBus bus, IMapper mapper)
         {
             _bus = bus;
+            _mapper = mapper;
 
             try
             {
@@ -28,17 +34,8 @@ namespace Fibonacci.Api.Bll.Notification
 
         public async Task NotifyNextFibonacciCalculated(CalculateNextFibonacciResponse nextFibonacciResponse)
         {
-            var message = new NextFibonacciCalculatedResultMessage
-            {
-                Previous = nextFibonacciResponse.Previous,
-                Result = nextFibonacciResponse.Result,
-                GeneratedOn = DateTime.UtcNow,
-                SessionId = nextFibonacciResponse.SessionId,
-                TaskId = nextFibonacciResponse.TaskId
-            };
-
+            var message = _mapper.Map<NextFibonacciCalculatedResultMessage>(nextFibonacciResponse);
             var m = new Message<NextFibonacciCalculatedResultMessage>(message);
-
             await _bus.PublishAsync(_exchange, string.Empty, true, m);
         }
     }

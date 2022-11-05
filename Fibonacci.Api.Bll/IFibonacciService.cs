@@ -8,6 +8,6 @@ namespace Fibonacci.Api.Bll
     {
         Task<CalculateNextFibonacciResponse> CalculateNextFibonacciNumber(CalculateNextFibonacciRequest request);
 
-        Task<CalculateCommandAcceptedResponse> CalculateNextFibonacciNumberRpc(CalculateNextFibonacciRequest request);
+        Task<CalculateCommandAcceptedResponse> CalculateNextFibonacciRpc(CalculateNextFibonacciRequest request);
     }
 }

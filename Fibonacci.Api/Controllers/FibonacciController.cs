@@ -47,7 +47,7 @@ namespace Fibonacci.Api.Controllers
         [ProducesResponseType(typeof(CalculateCommandAcceptedResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> CalculateNextFibonacciRpc([FromQuery] CalculateNextFibonacciRequest request)
         {
-            var result = await _service.CalculateNextFibonacciNumber(request);
+            var result = await _service.CalculateNextFibonacciRpc(request);
             return Ok(result);
         }
     }

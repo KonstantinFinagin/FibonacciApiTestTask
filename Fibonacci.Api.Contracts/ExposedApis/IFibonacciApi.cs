@@ -7,6 +7,6 @@ namespace Fibonacci.Api.Contracts.ExposedApis
     public interface IFibonacciApi
     {
         [Get("/api/fibonacci/rpc")]
-        Task<CalculateNextFibonacciResponse> CalculateNextFibonacciRpc(CalculateNextFibonacciRequest request);
+        Task<CalculateCommandAcceptedResponse> CalculateNextFibonacciRpc(CalculateNextFibonacciRequest request);
     }
 }

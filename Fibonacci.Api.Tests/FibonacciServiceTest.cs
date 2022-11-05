@@ -33,7 +33,7 @@ namespace Fibonacci.Api.Tests
 
         [Theory]
         [InlineData(0, null, 1, null)]
-        [InlineData(1, null, null, "Previous value should not be null when calculating next value for 1")]
+        [InlineData(1, null, null, "PreviousValue value should not be null when calculating next value for 1")]
         [InlineData(1, 0, 1, null)]
         [InlineData(1, 1, 2, null)]
         [InlineData(2, null, 3, null)]
@@ -46,17 +46,15 @@ namespace Fibonacci.Api.Tests
             {
                 Value = value,
                 PreviousValue = prevValue,
-                SessionId = 1,
                 TaskId = 1,
             };
 
             if (exceptionMessage == null)
             {
                 var nextNumberResponse = await _service.CalculateNextFibonacciNumber(request);
-                Assert.Equal(result, (long?) nextNumberResponse.Result);
-                Assert.Equal(1, nextNumberResponse.SessionId);
+                Assert.Equal(result, (long?) nextNumberResponse.Value);
                 Assert.Equal(1, nextNumberResponse.TaskId);
-                Assert.Equal(value, nextNumberResponse.Previous);
+                Assert.Equal(value, nextNumberResponse.PreviousValue);
             }
 
             else

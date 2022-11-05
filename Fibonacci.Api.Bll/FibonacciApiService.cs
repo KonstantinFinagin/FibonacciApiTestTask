@@ -32,10 +32,9 @@ namespace Fibonacci.Api.Bll
 
             var response = new CalculateNextFibonacciResponse()
             {
-                Previous = request.Value,
-                Result = nextFibonacci,
+                PreviousValue = request.Value,
+                Value = nextFibonacci,
                 TaskId = request.TaskId,
-                SessionId = request.SessionId
             };
 
             // notify via rabbit
@@ -49,23 +48,21 @@ namespace Fibonacci.Api.Bll
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<CalculateCommandAcceptedResponse> CalculateNextFibonacciNumberRpc(CalculateNextFibonacciRequest request)
+        public async Task<CalculateCommandAcceptedResponse> CalculateNextFibonacciRpc(CalculateNextFibonacciRequest request)
         {
             var nextFibonacci = FibonacciCalculator.NextFibonacci(request.Value, request.PreviousValue);
 
             var response = new CalculateCommandAcceptedResponse()
             {
                 Accepted = true,
-                SessionId = request.SessionId,
                 TaskId = request.TaskId
             };
 
             var messageResponse = new CalculateNextFibonacciResponse()
             {
-                Previous = request.Value,
-                Result = nextFibonacci,
+                PreviousValue = request.Value,
+                Value = nextFibonacci,
                 TaskId = request.TaskId,
-                SessionId = request.SessionId
             };
 
             await _notificationService.NotifyNextFibonacciCalculated(messageResponse);

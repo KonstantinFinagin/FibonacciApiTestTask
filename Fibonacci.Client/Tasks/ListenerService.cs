@@ -46,7 +46,9 @@ namespace Fibonacci.Client.Tasks
 
         public void Stop()
         {
-            // TODO unbind, dispose etc
+            // That's bad, but we're just cleaning up, proper shutdown cases should be considered
+
+            _bus.QueuePurgeAsync(QueueNameConstants.FibonacciUpdatesQueue).GetAwaiter().GetResult();
             _logger.Information("Listener Service has been stopped");
         }
     }

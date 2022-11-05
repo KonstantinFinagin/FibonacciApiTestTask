@@ -13,7 +13,6 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="EasyNetQ" Version="7.3.0" />
     <PackageReference Include="EasyNetQ.DI.Autofac" Version="7.3.0" />
-    <PackageReference Include="EasyNetQ.Serilog" Version="2.3.3" />
     <PackageReference Include="FluentValidation" Version="11.2.2" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />

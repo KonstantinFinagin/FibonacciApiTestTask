@@ -12,13 +12,11 @@ namespace Fibonacci.Api.Bll
     {
         private readonly IValidatorsFactory _validatorsFactory;
         private readonly INotificationService _notificationService;
-        private readonly ILogger _logger;
 
-        public FibonacciService(IValidatorsFactory validatorsFactory, INotificationService notificationService, ILogger logger)
+        public FibonacciService(IValidatorsFactory validatorsFactory, INotificationService notificationService)
         {
             _validatorsFactory = validatorsFactory;
             _notificationService = notificationService;
-            _logger = logger;
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Fibonacci.Common;
+using Fibonacci.Common.Logging;
 using Fibonacci.Common.Modules;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,11 +23,12 @@ namespace Fibonacci.Client
                 .AddJsonFile("appsettings.json", optional: false)
                 .Build();
 
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
-
             var builder = new ContainerBuilder();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFromSettings(configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
 
             builder.RegisterModule<FibonacciClientModule>();
 

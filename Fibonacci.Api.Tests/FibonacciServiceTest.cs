@@ -28,8 +28,7 @@ namespace Fibonacci.Api.Tests
 
             _service = new FibonacciService(
                 _validatorsFacotyMock.Object, 
-                _notificationServiceMock.Object,
-                _loggerMock.Object);
+                _notificationServiceMock.Object);
         } 
 
         [Theory]

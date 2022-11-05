@@ -11,7 +11,7 @@ namespace Fibonacci.Api.Bll.Validation
         {
             When(a => a.Value == 1, () =>
             {
-                RuleFor(a => a.PreviousValue).NotNull();
+                RuleFor(a => a.PreviousValue).NotNull().WithMessage("Previous value should not be null when calculating next value for 1");
             });
 
             RuleFor(a => a.Value).Must(FibonacciCalculator.IsFibonacci).WithMessage("Please pass in a valid Fibonacci number");

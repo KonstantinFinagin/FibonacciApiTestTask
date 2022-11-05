@@ -12,6 +12,11 @@ namespace Fibonacci.Client
     {
         public static void Main(string[] args)
         {
+            CompositionRoot().Resolve<Application>().Run();
+        }
+
+        private static IContainer CompositionRoot()
+        {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false)
                 .Build();
@@ -20,16 +25,13 @@ namespace Fibonacci.Client
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
 
-            CompositionRoot().Resolve<Application>().Run();
-        }
-
-        private static IContainer CompositionRoot()
-        {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<Application>().AsSelf();
-            builder.RegisterModule<DefaultModule>();
             builder.RegisterModule<FibonacciClientModule>();
+
+            builder.RegisterType<Application>().AsSelf();
+            builder.RegisterInstance(Log.Logger).AsImplementedInterfaces();
+            builder.RegisterInstance(configuration).AsImplementedInterfaces();
 
             return builder.Build();
         }

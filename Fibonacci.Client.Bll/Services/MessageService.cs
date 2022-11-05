@@ -25,9 +25,10 @@ namespace Fibonacci.Client.Bll.Services
             };
         }
 
-        public async Task ProcessMessageAsync(byte[] bytes, MessageProperties messageProperties, MessageReceivedInfo messageReceivedInfo)
+        public async Task ProcessMessageAsync(ReadOnlyMemory<byte> bytes, MessageProperties messageProperties,
+            MessageReceivedInfo messageReceivedInfo)
         {
-            var rawMessage = Encoding.UTF8.GetString(bytes);
+            var rawMessage = Encoding.UTF8.GetString(bytes.ToArray());
 
             var message = System.Text.Json.JsonSerializer.Deserialize<NextFibonacciCalculatedResultMessage>(rawMessage);
             if (message != null)

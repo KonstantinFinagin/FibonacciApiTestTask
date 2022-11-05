@@ -6,6 +6,9 @@ namespace Fibonacci.Client.Bll.Services
     {
         List<string> QueueNames { get; }
 
-        Task ProcessMessageAsync(byte[] bytes, MessageProperties messageProperties, MessageReceivedInfo messageReceivedInfo);
+        Task ProcessMessageAsync(
+            ReadOnlyMemory<byte> bytes, 
+            MessageProperties messageProperties,
+            MessageReceivedInfo messageReceivedInfo);
     }
 }

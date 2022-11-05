@@ -2,7 +2,7 @@
 {
     public interface IListenerService
     {
-        Task StartAsync(int nParallelRequests);
+        Task StartAsync();
 
         void Stop();
     }

@@ -1,8 +1,9 @@
 ﻿using Autofac;
+using EasyNetQ.ConnectionString;
 using Fibonacci.Api.Bll.Mapping;
 using Fibonacci.Api.Bll.Validation;
-using Fibonacci.Api.Contracts;
 using Fibonacci.Common.Validation;
+using Microsoft.Extensions.Configuration;
 
 namespace Fibonacci.Api
 {
@@ -13,6 +14,19 @@ namespace Fibonacci.Api
             base.Load(builder);
 
             builder.RegisterModule(new ValidatorsModule(typeof(CalculateNextFibonacciRequestValidator).Assembly));
+
+            builder.RegisterEasyNetQ(c =>
+            {
+                var conf = c.Resolve<IConfiguration>().GetSection("RabbitMq");
+                var connectionStringParser = new ConnectionStringParser();
+                string connectionString = $"host={conf["Host"]}:{conf["Port"]};" +
+                                          $"virtualHost={conf["VirtualHost"]};" +
+                                          $"username={conf["UserName"]};" +
+                                          $"password={conf["Password"]};" +
+                                          $"prefetchCount={conf["Prefetch"]}";
+
+                return connectionStringParser.Parse(connectionString);
+            });
 
             builder.RegisterAssemblyTypes(typeof(FibonacciMappingProfile).Assembly)
                 .Where(t => t.Name.EndsWith("Service") 

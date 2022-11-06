@@ -10,7 +10,7 @@ Covering:
 - Modularization
 - Unit testing with XUnit
 - Swagger api description
-- Memoization for speeding up recursive calculations (Fibonacci calculation) (whoa, that was really interesting!)
+- Memoization for speeding up recursive calculations, BigInteger (Fibonacci calculation) (whoa, that was really interesting!)
 - Using Autofac, Serilog, EasyNetQ, Refit and other libs
 
 Excluded:

@@ -1,6 +1,6 @@
 ﻿namespace Fibonacci.Client.Contracts
 {
-    public class NextFibonacciCalculatedResultMessage
+    public class NextFibonacciCalculationResultMessage
     {
         public string Value { get; set; } = null!;
 
@@ -9,5 +9,9 @@
         public DateTime GeneratedOn { get; set; }
 
         public int TaskId { get; set; }
+
+        public bool CalculationStopped { get; set; }
+
+        public string ExceptionMessage { get; set; } = null!;
     }
 }

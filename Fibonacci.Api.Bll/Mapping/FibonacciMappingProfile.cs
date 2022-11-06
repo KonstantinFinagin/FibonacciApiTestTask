@@ -8,7 +8,7 @@ namespace Fibonacci.Api.Bll.Mapping
     {
         public FibonacciMappingProfile()
         {
-            CreateMap<CalculateNextFibonacciResponse, NextFibonacciCalculatedResultMessage>()
+            CreateMap<CalculateNextFibonacciResponse, NextFibonacciCalculationResultMessage>()
                 .ForMember(d => d.GeneratedOn, o => o.MapFrom(s => DateTime.UtcNow));
 
             // When complex domain objects and persistence (POCO) arise, mapping from DTOs is required, should go here

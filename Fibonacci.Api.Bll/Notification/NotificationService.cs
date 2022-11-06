@@ -35,20 +35,21 @@ namespace Fibonacci.Api.Bll.Notification
 
         public async Task NotifyNextFibonacciCalculated(CalculateNextFibonacciResponse nextFibonacciResponse)
         {
-            var message = _mapper.Map<NextFibonacciCalculatedResultMessage>(nextFibonacciResponse);
-            var m = new Message<NextFibonacciCalculatedResultMessage>(message);
+            var message = _mapper.Map<NextFibonacciCalculationResultMessage>(nextFibonacciResponse);
+            var m = new Message<NextFibonacciCalculationResultMessage>(message);
             await _bus.PublishAsync(_exchange, string.Empty, true, m);
         }
 
         public async Task NotifyCalculationEnded(int taskId, DomainException ex)
         {
-            var message = new CalculationExceptionMessage()
+            var message = new NextFibonacciCalculationResultMessage()
             {
                 TaskId = taskId,
-                Message = ex.Message
+                ExceptionMessage = ex.Message,
+                CalculationStopped = true
             };
 
-            var m = new Message<CalculationExceptionMessage>(message);
+            var m = new Message<NextFibonacciCalculationResultMessage>(message);
             await _bus.PublishAsync(_exchange, string.Empty, true, m);
         }
     }

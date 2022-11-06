@@ -11,9 +11,9 @@ namespace Fibonacci.Client.Bll.Services
     {
         private readonly ILogger _logger;
 
-        private readonly IMessageProcessor<NextFibonacciCalculatedResultMessage> _fibonacciProcessor;
+        private readonly IMessageProcessor<NextFibonacciCalculationResultMessage> _fibonacciProcessor;
 
-        public MessageService(IMessageProcessor<NextFibonacciCalculatedResultMessage> fibonacciProcessor) 
+        public MessageService(IMessageProcessor<NextFibonacciCalculationResultMessage> fibonacciProcessor) 
         {
             _fibonacciProcessor = fibonacciProcessor;
             _logger = Log.ForContext<MessageService>();
@@ -30,7 +30,7 @@ namespace Fibonacci.Client.Bll.Services
         {
             var rawMessage = Encoding.UTF8.GetString(bytes.ToArray());
 
-            var message = System.Text.Json.JsonSerializer.Deserialize<NextFibonacciCalculatedResultMessage>(rawMessage);
+            var message = System.Text.Json.JsonSerializer.Deserialize<NextFibonacciCalculationResultMessage>(rawMessage);
             if (message != null)
             {
                 try

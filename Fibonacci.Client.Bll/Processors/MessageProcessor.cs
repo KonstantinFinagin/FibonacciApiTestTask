@@ -8,7 +8,7 @@ using Serilog;
 
 namespace Fibonacci.Client.Bll.Processors
 {
-    public class MessageProcessor : IMessageProcessor<NextFibonacciCalculatedResultMessage>
+    public class MessageProcessor : IMessageProcessor<NextFibonacciCalculationResultMessage>
     {
         private readonly ILogger _logger;
         private readonly IApiService _apiService;
@@ -21,9 +21,14 @@ namespace Fibonacci.Client.Bll.Processors
             _fibonacciCalculatorService = fibonacciCalculatorService;
         }
 
-        public async Task ProcessMessageAsync(NextFibonacciCalculatedResultMessage message)
+        public async Task ProcessMessageAsync(NextFibonacciCalculationResultMessage message)
         {
             // when a message is received from the queue - calculate the next number and do the roundtrip 
+            if (message.CalculationStopped)
+            {
+                _logger.Debug($"Calculation of task {message.TaskId} stopped: {message.ExceptionMessage}");
+                return;
+            }
 
             _logger.Debug($"{message.GeneratedOn} <-- TaskId:{message.TaskId}, Value:{message.Value}, PreviousValue:{message.PreviousValue}");
 
@@ -53,7 +58,7 @@ namespace Fibonacci.Client.Bll.Processors
             }
             catch (Exception ex)
             {
-                _logger.Debug($"API SEND ERROR", ex);
+                _logger.Error($"API SEND ERROR", ex);
             }
         }
     }

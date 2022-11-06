@@ -12,8 +12,8 @@ namespace Fibonacci.Api.Tests
 {
     public class FibonacciServiceTest
     {
-        private FibonacciApiApiService _apiApiService;
-        private Mock<IValidatorsFactory> _validatorsFacotyMock;
+        private FibonacciApiService _apiService;
+        private Mock<IValidatorsFactory> _validatorsFactoryMock;
         private Mock<INotificationService> _notificationServiceMock;
         private Mock<ILogger> _loggerMock;
 
@@ -21,17 +21,17 @@ namespace Fibonacci.Api.Tests
 
         public FibonacciServiceTest()
         {
-            _validatorsFacotyMock = new Mock<IValidatorsFactory>();
+            _validatorsFactoryMock = new Mock<IValidatorsFactory>();
             _notificationServiceMock = new Mock<INotificationService>(); 
             _loggerMock = new Mock<ILogger>();
 
             _fibonacciCalculatorService = new Mock<IFibonacciCalculatorService>();
 
-            _validatorsFacotyMock.Setup(m => m.For<CalculateNextFibonacciRequest>())
-                .Returns(new CalculateNextFibonacciRequestValidator(new FibonacciCalculatorService()));
+            _validatorsFactoryMock.Setup(m => m.For<CalculateNextFibonacciRequest>())
+                .Returns(new CalculateNextFibonacciRequestValidator(new FibonacciCalculatorService())).Verifiable();
 
-            _apiApiService = new FibonacciApiApiService(
-                _validatorsFacotyMock.Object, 
+            _apiService = new FibonacciApiService(
+                _validatorsFactoryMock.Object, 
                 _notificationServiceMock.Object,
                 _fibonacciCalculatorService.Object);
         } 
@@ -42,11 +42,13 @@ namespace Fibonacci.Api.Tests
             var request = new CalculateNextFibonacciRequest()
             {
                 Value = "5",
-                PreviousValue = "3",
                 TaskId = 1,
             };
 
-            await _apiApiService.CalculateNextFibonacciNumber(request);
+            await _apiService.CalculateNextFibonacciNumber(request);
+
+            _validatorsFactoryMock.Verify(v => v.For<CalculateNextFibonacciRequest>(), Times.Once);
+            _fibonacciCalculatorService.Verify(v => v.CalculateNextFibonacci("5", null), Times.Once);
         }
     }
 }

@@ -8,13 +8,13 @@ using FluentValidation;
 
 namespace Fibonacci.Api.Bll
 {
-    public class FibonacciApiApiService : IFibonacciApiService
+    public class FibonacciApiService : IFibonacciApiService
     {
         private readonly IValidatorsFactory _validatorsFactory;
         private readonly INotificationService _notificationService;
         private readonly IFibonacciCalculatorService _calculator;
 
-        public FibonacciApiApiService(
+        public FibonacciApiService(
             IValidatorsFactory validatorsFactory,
             INotificationService notificationService, 
             IFibonacciCalculatorService calculator)

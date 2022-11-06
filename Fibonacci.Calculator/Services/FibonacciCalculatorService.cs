@@ -15,6 +15,27 @@ namespace Fibonacci.Calculator.Services
         public FibonacciCalculatorService()
         {
             _memo = new Dictionary<BigInteger, BigInteger>();
+            PrefillMemoTable();
+        }
+
+        private void PrefillMemoTable()
+        {
+            _memo.Add(1, new BigInteger(2));
+            _memo.Add(2, new BigInteger(3));
+
+            var current = new BigInteger(2);
+
+            while (true)
+            {
+                var prev = _memo[current];
+                var next = prev + current;
+
+                _memo.Add(prev, next);
+                
+                current = prev;
+
+                if (prev.GetByteCount() > MaxBytes + 1) break;
+            }
         }
 
         public BigInteger CalculateNextFibonacci(BigInteger n, BigInteger? prevN = null)
@@ -47,6 +68,7 @@ namespace Fibonacci.Calculator.Services
         {
             if (n < 2)
             {
+                _memo.Add(n, BigInteger.One);
                 return BigInteger.One;
             }
 

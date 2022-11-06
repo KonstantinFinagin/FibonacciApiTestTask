@@ -6,6 +6,8 @@ namespace Fibonacci.Calculator.Services
     {
         bool IsFibonacci(BigInteger n);
 
+        bool IsFibonacci(string n);
+
         BigInteger CalculateNextFibonacci(BigInteger n, BigInteger? prevN = null);
 
         string CalculateNextFibonacci(string n, string? prevN = null);

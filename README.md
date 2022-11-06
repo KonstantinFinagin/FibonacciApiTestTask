@@ -8,7 +8,7 @@ Covering:
 - RPC calls
 - RabbitMQ interservice communication
 - Modularization
-- Unit testing with XUnit
+- Unit testing with XUnit (just a core module, sorry)
 - Swagger api description
 - Memoization for speeding up recursive calculations, BigInteger (Fibonacci calculation) (whoa, that was really interesting!)
 - Using Autofac, Serilog, EasyNetQ, Refit and other libs

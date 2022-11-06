@@ -4,6 +4,7 @@ using EasyNetQ.Topology;
 using Fibonacci.Api.Contracts.Responses;
 using Fibonacci.Client.Contracts;
 using Fibonacci.Common.Constants;
+using Fibonacci.Common.Exceptions;
 
 namespace Fibonacci.Api.Bll.Notification
 {
@@ -36,6 +37,18 @@ namespace Fibonacci.Api.Bll.Notification
         {
             var message = _mapper.Map<NextFibonacciCalculatedResultMessage>(nextFibonacciResponse);
             var m = new Message<NextFibonacciCalculatedResultMessage>(message);
+            await _bus.PublishAsync(_exchange, string.Empty, true, m);
+        }
+
+        public async Task NotifyCalculationEnded(int taskId, DomainException ex)
+        {
+            var message = new CalculationExceptionMessage()
+            {
+                TaskId = taskId,
+                Message = ex.Message
+            };
+
+            var m = new Message<CalculationExceptionMessage>(message);
             await _bus.PublishAsync(_exchange, string.Empty, true, m);
         }
     }

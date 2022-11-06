@@ -3,6 +3,7 @@ using Fibonacci.Calculator;
 using Fibonacci.Calculator.Services;
 using Fibonacci.Client.Bll.Services;
 using Fibonacci.Client.Contracts;
+using Fibonacci.Common.Exceptions;
 using Serilog;
 
 namespace Fibonacci.Client.Bll.Processors
@@ -26,14 +27,22 @@ namespace Fibonacci.Client.Bll.Processors
 
             _logger.Debug($"{message.GeneratedOn} <-- TaskId:{message.TaskId}, Value:{message.Value}, PreviousValue:{message.PreviousValue}");
 
-            /*
-            var newFibonacci = FibonacciCalculator.NextFibonacci(message.Value, message.PreviousValue);
+            string newFibonacci;
+            try
+            {
+                newFibonacci = _fibonacciCalculatorService.CalculateNextFibonacci(message.Value, message.PreviousValue);
+            }
+            catch (DomainException ex)
+            {
+                _logger.Debug($"Stopping task {message.TaskId}: {ex.Message}");
+                return;
+            }
 
             var request = new CalculateNextFibonacciRequest()
             {
-                PreviousValue = message.Value,
-                TaskId = message.TaskId,
+                PreviousValue = (message.Value == "1" || message.Value == "0") ? message.Value : null!,
                 Value = newFibonacci,
+                TaskId = message.TaskId,
             };
             
             _logger.Debug($"{DateTime.UtcNow} --> TaskId:{request.TaskId}, Value:{request.Value}, PreviousValue:{request.PreviousValue}");
@@ -46,7 +55,6 @@ namespace Fibonacci.Client.Bll.Processors
             {
                 _logger.Debug($"API SEND ERROR", ex);
             }
-            */
         }
     }
 }

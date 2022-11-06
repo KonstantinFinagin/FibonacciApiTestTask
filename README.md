@@ -16,6 +16,7 @@ Covering:
 Excluded:
 - Entity Framework
 - Authorization middleware
+- Docker and containerization
 
 Before running please setup:
 - RabbitMQ with Fibonaccy.Exchange (fanout) Fibonaccy.Queue (guest/guest) 

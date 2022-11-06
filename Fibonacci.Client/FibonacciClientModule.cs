@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using AutoMapper.Contrib.Autofac.DependencyInjection;
 using EasyNetQ.ConnectionString;
+using Fibonacci.Calculator.Modules;
 using Fibonacci.Client.Bll;
 using Fibonacci.Common.Modules;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ namespace Fibonacci.Client
             base.Load(builder);
 
             builder.RegisterModule<DefaultModule>();
+
             builder.RegisterModule(new FibonacciClientBllModule());
 
             builder.RegisterAutoMapper(typeof(Bll.Processors.MessageProcessor).Assembly);

@@ -3,6 +3,7 @@ using Fibonacci.Api.Bll;
 using Fibonacci.Api.Bll.Notification;
 using Fibonacci.Api.Bll.Validation;
 using Fibonacci.Api.Contracts.Requests;
+using Fibonacci.Calculator.Services;
 using Fibonacci.Common.Validation;
 using FluentValidation;
 using Moq;
@@ -18,50 +19,36 @@ namespace Fibonacci.Api.Tests
         private Mock<INotificationService> _notificationServiceMock;
         private Mock<ILogger> _loggerMock;
 
+        private Mock<IFibonacciCalculatorService> _fibonacciCalculatorService;
+
         public FibonacciServiceTest()
         {
             _validatorsFacotyMock = new Mock<IValidatorsFactory>();
             _notificationServiceMock = new Mock<INotificationService>(); 
             _loggerMock = new Mock<ILogger>();
 
-            _validatorsFacotyMock.Setup(m => m.For<CalculateNextFibonacciRequest>()).Returns(new CalculateNextFibonacciRequestValidator());
+            _fibonacciCalculatorService = new Mock<IFibonacciCalculatorService>();
+
+            _validatorsFacotyMock.Setup(m => m.For<CalculateNextFibonacciRequest>())
+                .Returns(new CalculateNextFibonacciRequestValidator(new FibonacciCalculatorService()));
 
             _service = new FibonacciService(
                 _validatorsFacotyMock.Object, 
-                _notificationServiceMock.Object);
+                _notificationServiceMock.Object,
+                _fibonacciCalculatorService.Object);
         } 
 
-        [Theory]
-        [InlineData(0, null, 1, null)]
-        [InlineData(1, null, null, "PreviousValue value should not be null when calculating next value for 1")]
-        [InlineData(1, 0, 1, null)]
-        [InlineData(1, 1, 2, null)]
-        [InlineData(2, null, 3, null)]
-        [InlineData(3, null, 5, null)]
-        [InlineData(4, null, null, "Please pass in a valid Fibonacci number")]
-        [InlineData(8, null, 13, null)]
-        async Task CalculationUnitTest(int value, int? prevValue, int? result, string exceptionMessage)
+        [Fact]
+        async Task CalculationCallsCalculatorService()
         {
             var request = new CalculateNextFibonacciRequest()
             {
-                Value = value,
-                PreviousValue = prevValue,
+                Value = "5",
+                PreviousValue = "3",
                 TaskId = 1,
             };
 
-            if (exceptionMessage == null)
-            {
-                var nextNumberResponse = await _service.CalculateNextFibonacciNumber(request);
-                Assert.Equal(result, (long?) nextNumberResponse.Value);
-                Assert.Equal(1, nextNumberResponse.TaskId);
-                Assert.Equal(value, nextNumberResponse.PreviousValue);
-            }
-
-            else
-            {
-                var exception = await Assert.ThrowsAsync<ValidationException>(() => _service.CalculateNextFibonacciNumber(request));
-                Assert.Contains(exceptionMessage, exception.Message);
-            }
+            await _service.CalculateNextFibonacciNumber(request);
         }
     }
 }

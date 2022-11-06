@@ -2,6 +2,7 @@
 using EasyNetQ.ConnectionString;
 using Fibonacci.Api.Bll.Mapping;
 using Fibonacci.Api.Bll.Validation;
+using Fibonacci.Calculator.Modules;
 using Fibonacci.Common.Validation;
 using Microsoft.Extensions.Configuration;
 
@@ -13,6 +14,7 @@ namespace Fibonacci.Api
         {
             base.Load(builder);
 
+            builder.RegisterModule<FibonacciCalculatorModule>();
             builder.RegisterModule(new ValidatorsModule(typeof(CalculateNextFibonacciRequestValidator).Assembly));
 
             builder.RegisterEasyNetQ(c =>

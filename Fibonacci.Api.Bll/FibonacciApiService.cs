@@ -1,7 +1,9 @@
-﻿using Fibonacci.Api.Bll.Notification;
+﻿using System.Numerics;
+using Fibonacci.Api.Bll.Notification;
 using Fibonacci.Api.Contracts.Requests;
 using Fibonacci.Api.Contracts.Responses;
 using Fibonacci.Calculator;
+using Fibonacci.Calculator.Services;
 using Fibonacci.Common.Validation;
 using FluentValidation;
 using Serilog;
@@ -12,11 +14,16 @@ namespace Fibonacci.Api.Bll
     {
         private readonly IValidatorsFactory _validatorsFactory;
         private readonly INotificationService _notificationService;
+        private readonly IFibonacciCalculatorService _calculator;
 
-        public FibonacciService(IValidatorsFactory validatorsFactory, INotificationService notificationService)
+        public FibonacciService(
+            IValidatorsFactory validatorsFactory,
+            INotificationService notificationService, 
+            IFibonacciCalculatorService calculator)
         {
             _validatorsFactory = validatorsFactory;
             _notificationService = notificationService;
+            _calculator = calculator;
         }
 
         /// <summary>
@@ -28,11 +35,11 @@ namespace Fibonacci.Api.Bll
         {
             await _validatorsFactory.For<CalculateNextFibonacciRequest>().ValidateAndThrowAsync(request);
 
-            var nextFibonacci = FibonacciCalculator.NextFibonacci(request.Value, request.PreviousValue);
+            var nextFibonacci = _calculator.CalculateNextFibonacci(request.Value, request.PreviousValue);
 
             var response = new CalculateNextFibonacciResponse()
             {
-                PreviousValue = request.Value,
+                PreviousValue = (request.Value == "1" )? request.Value : null!,
                 Value = nextFibonacci,
                 TaskId = request.TaskId,
             };
@@ -50,7 +57,7 @@ namespace Fibonacci.Api.Bll
         /// <returns></returns>
         public async Task<CalculateCommandAcceptedResponse> CalculateNextFibonacciRpc(CalculateNextFibonacciRequest request)
         {
-            var nextFibonacci = FibonacciCalculator.NextFibonacci(request.Value, request.PreviousValue);
+            var nextFibonacci = _calculator.CalculateNextFibonacci(request.Value, request.PreviousValue);
 
             var response = new CalculateCommandAcceptedResponse()
             {
@@ -60,7 +67,7 @@ namespace Fibonacci.Api.Bll
 
             var messageResponse = new CalculateNextFibonacciResponse()
             {
-                PreviousValue = request.Value,
+                PreviousValue = (request.Value == "1") ? request.Value : null!,
                 Value = nextFibonacci,
                 TaskId = request.TaskId,
             };

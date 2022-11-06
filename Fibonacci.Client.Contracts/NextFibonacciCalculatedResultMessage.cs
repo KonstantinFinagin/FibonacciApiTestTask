@@ -2,9 +2,9 @@
 {
     public class NextFibonacciCalculatedResultMessage
     {
-        public long Value { get; set; }
+        public string Value { get; set; } = null!;
 
-        public long? PreviousValue { get; set; }
+        public string PreviousValue { get; set; } = null!;
 
         public DateTime GeneratedOn { get; set; }
 

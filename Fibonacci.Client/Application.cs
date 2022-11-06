@@ -59,8 +59,8 @@ public class Application
         {
             var request = new CalculateNextFibonacciRequest()
             {
-                Value = 0,
-                PreviousValue = 0,
+                Value = "0",
+                PreviousValue = "0",
                 TaskId = taskId
             };
 

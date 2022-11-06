@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Linq;
+using Fibonacci.Common.Extensions;
 
 namespace Fibonacci.Common.Exceptions
 {
@@ -32,6 +33,22 @@ namespace Fibonacci.Common.Exceptions
                 await _next(context);
             }
             // TODO catch custom exceptions if needed
+
+            catch (DomainException domainException)
+            {
+                Logger.Error(
+                    domainException,
+                    "DomainException: {ErrorType}: {ErrorMessage}",
+                    domainException.ErrorCode.ToString(),
+                    domainException.Message);
+
+                var errorCode = domainException.ErrorCode;
+                var status = errorCode.TranslateErrorCodeToStatusCode();
+                SetStatusCode(context, status);
+
+                var response = new ExceptionResponse($"{domainException.ErrorCode} : {domainException.Message}", errorCode);
+                await WriteToResponseAsync(context, response);
+            }
 
             catch (FluentValidation.ValidationException exception)
             {

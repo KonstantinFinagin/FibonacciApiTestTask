@@ -4,8 +4,8 @@
     {
         public int TaskId { get; set; }
 
-        public long Value { get; set; }
+        public string Value { get; set; } = null!;
 
-        public long? PreviousValue { get; set; }
+        public string PreviousValue { get; set; } = null!;
     }
 }

@@ -1,5 +1,13 @@
-﻿namespace Fibonacci.Calculator
+﻿using System.Numerics;
+
+namespace Fibonacci.Calculator
 {
+    /// <summary>
+    ///     NOTE
+    ///     This is a simple but primitive implementation, only for testing out the interservice communication,
+    ///     See FibonacciCalculatorService instead
+    /// </summary>
+    [Obsolete]
     public static class FibonacciCalculator
     {
         public static bool IsFibonacci(long n)
@@ -26,7 +34,7 @@
                 case 1 when prevN == 2:
                     return 2;
                 default:
-                    return (long)Math.Round(n * (1 + Math.Sqrt(5)) / 2.0);
+                    return (long) Math.Round(n * (1 + Math.Sqrt(5)) / 2.0);
             }
         }
 

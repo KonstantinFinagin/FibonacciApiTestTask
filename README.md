@@ -29,7 +29,7 @@ Main classes to see (others are more or less of infrastrcture support):
 
 ## Description:
 
-Two applications communicate with each other through transport, realizing the calculation of Fibonacci numbers.
+Two applications communicate with each other through transport, implementing the calculation of Fibonacci numbers.
 
 The first one initializes the calculation and sends initial fibonacci number to the second 
 The second calculates next fibonacci number and sends the result back

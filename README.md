@@ -23,7 +23,7 @@ Before running please setup:
 - In Visual studio check appsettings.json in both apps
 
 Main classes to see (others are more or less of infrastrcture support):
-- FibonacciCalculatorService.cs
+- FibonacciCalculatorService.cs (if you want REAL just-in-time recursive calculation - just turn off the memo table prefill in constructor and set MaxBytes to 20 in tests to avoid stackoverflow)
 - FibonacciApiService.cs (API)
 - MessageProcessor.cs (Client)
 

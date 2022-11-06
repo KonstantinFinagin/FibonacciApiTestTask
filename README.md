@@ -26,7 +26,7 @@ Before running please setup:
 
 Two applications communicate with each other through transport, realizing the calculation of Fibonacci numbers.
 
-The first one initializes the calculation and sends to the second N(i)
+The first one initializes the calculation and sends initial fibonacci number to the second 
 The second calculates next fibonacci number and sends the result back
 Further on they communicate back and forth until applications stop (in the sample - BigInteger does not exceed 30 bytes)
 

@@ -23,13 +23,13 @@ Before running please setup:
 - In Visual studio check appsettings.json in both apps
 
 Main classes to see (others are more or less of infrastrcture support):
-- FibonacciCalculatorService.cs
+- FibonacciCalculatorService.cs (if you want REAL just-in-time recursive calculation - just turn off the memo table prefill in constructor and set MaxBytes to 20 in tests to avoid stackoverflow)
 - FibonacciApiService.cs (API)
 - MessageProcessor.cs (Client)
 
 ## Description:
 
-Two applications communicate with each other through transport, realizing the calculation of Fibonacci numbers.
+Two applications communicate with each other through transport, implementing the calculation of Fibonacci numbers.
 
 The first one initializes the calculation and sends initial fibonacci number to the second 
 The second calculates next fibonacci number and sends the result back

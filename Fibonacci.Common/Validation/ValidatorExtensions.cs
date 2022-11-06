@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.TestHelper;
-using Microsoft.AspNetCore.Http;
 
 namespace Fibonacci.Common.Validation
 {

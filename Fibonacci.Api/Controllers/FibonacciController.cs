@@ -1,9 +1,7 @@
 ﻿using Fibonacci.Api.Bll;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Fibonacci.Api.Contracts;
 using Fibonacci.Api.Contracts.Requests;
 using Fibonacci.Api.Contracts.Responses;
 using Fibonacci.Common.Mvc.Filters;
@@ -16,11 +14,11 @@ namespace Fibonacci.Api.Controllers
     [Route("api/fibonacci")]
     public class FibonacciController : ControllerBase
     {
-        private readonly IFibonacciService _service;
+        private readonly IFibonacciApiService _apiService;
 
-        public FibonacciController(IFibonacciService service)
+        public FibonacciController(IFibonacciApiService apiService)
         {
-            _service = service;
+            _apiService = apiService;
         }
 
         /// <summary>
@@ -32,7 +30,7 @@ namespace Fibonacci.Api.Controllers
         [ProducesResponseType(typeof(CalculateNextFibonacciResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> CalculateNextFibonacci([FromQuery] CalculateNextFibonacciRequest request)
         {
-            var result = await _service.CalculateNextFibonacciNumber(request);
+            var result = await _apiService.CalculateNextFibonacciNumber(request);
             return Ok(result);
         }
 
@@ -47,7 +45,7 @@ namespace Fibonacci.Api.Controllers
         [ProducesResponseType(typeof(CalculateCommandAcceptedResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> CalculateNextFibonacciRpc([FromQuery] CalculateNextFibonacciRequest request)
         {
-            var result = await _service.CalculateNextFibonacciRpc(request);
+            var result = await _apiService.CalculateNextFibonacciRpc(request);
             return Ok(result);
         }
     }

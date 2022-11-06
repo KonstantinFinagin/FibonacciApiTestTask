@@ -9,7 +9,7 @@ using Fibonacci.Common.Exceptions;
 namespace Fibonacci.Api.Bll.Notification
 {
     /// <summary>
-    ///     Notify consumers via service bus
+    ///     Notify consumers via apiService bus
     /// </summary>
     public class NotificationService : INotificationService
     {

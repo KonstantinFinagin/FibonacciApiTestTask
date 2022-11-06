@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using AutoMapper;
+﻿using AutoMapper;
 
 namespace Fibonacci.Client.Bll.MappingProfiles
 {

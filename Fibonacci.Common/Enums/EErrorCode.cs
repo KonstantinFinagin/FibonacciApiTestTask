@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fibonacci.Common.Enums
+﻿namespace Fibonacci.Common.Enums
 {
     public enum EErrorCode
     {

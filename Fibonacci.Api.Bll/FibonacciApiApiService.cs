@@ -1,23 +1,20 @@
-﻿using System.Numerics;
-using Fibonacci.Api.Bll.Notification;
+﻿using Fibonacci.Api.Bll.Notification;
 using Fibonacci.Api.Contracts.Requests;
 using Fibonacci.Api.Contracts.Responses;
-using Fibonacci.Calculator;
 using Fibonacci.Calculator.Services;
 using Fibonacci.Common.Exceptions;
 using Fibonacci.Common.Validation;
 using FluentValidation;
-using Serilog;
 
 namespace Fibonacci.Api.Bll
 {
-    public class FibonacciService : IFibonacciService
+    public class FibonacciApiApiService : IFibonacciApiService
     {
         private readonly IValidatorsFactory _validatorsFactory;
         private readonly INotificationService _notificationService;
         private readonly IFibonacciCalculatorService _calculator;
 
-        public FibonacciService(
+        public FibonacciApiApiService(
             IValidatorsFactory validatorsFactory,
             INotificationService notificationService, 
             IFibonacciCalculatorService calculator)

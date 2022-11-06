@@ -1,10 +1,6 @@
 ﻿using Autofac;
-using Fibonacci.Common;
 using Fibonacci.Common.Logging;
-using Fibonacci.Common.Modules;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 using IContainer = Autofac.IContainer;
 

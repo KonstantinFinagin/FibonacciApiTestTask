@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using AutoMapper.Contrib.Autofac.DependencyInjection;
 using EasyNetQ.ConnectionString;
-using Fibonacci.Calculator.Modules;
 using Fibonacci.Client.Bll;
 using Fibonacci.Common.Modules;
 using Microsoft.Extensions.Configuration;

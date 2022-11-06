@@ -1,8 +1,6 @@
 ﻿using Autofac;
-using EasyNetQ.ConnectionString;
 using Fibonacci.Calculator.Modules;
 using Fibonacci.Client.Bll.Services;
-using Microsoft.Extensions.Configuration;
 using Module = Autofac.Module;
 
 namespace Fibonacci.Client.Bll

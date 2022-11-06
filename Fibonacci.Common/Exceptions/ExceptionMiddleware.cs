@@ -6,7 +6,6 @@ using Serilog;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using FluentValidation;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.ModelBinding;

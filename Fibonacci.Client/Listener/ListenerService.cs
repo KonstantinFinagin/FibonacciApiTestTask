@@ -1,6 +1,7 @@
 using EasyNetQ;
 using EasyNetQ.Topology;
 using Fibonacci.Client.Bll.Services;
+using Fibonacci.Client.Listener;
 using Fibonacci.Common.Constants;
 using Microsoft.Extensions.Configuration;
 using Serilog;

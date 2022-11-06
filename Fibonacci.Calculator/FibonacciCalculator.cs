@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace Fibonacci.Calculator
+﻿namespace Fibonacci.Calculator
 {
     /// <summary>
     ///     NOTE

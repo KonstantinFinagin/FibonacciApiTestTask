@@ -1,10 +1,9 @@
-﻿using Fibonacci.Api.Contracts;
-using Fibonacci.Api.Contracts.Requests;
+﻿using Fibonacci.Api.Contracts.Requests;
 using Fibonacci.Api.Contracts.Responses;
 
 namespace Fibonacci.Api.Bll
 {
-    public interface IFibonacciService
+    public interface IFibonacciApiService
     {
         Task<CalculateNextFibonacciResponse> CalculateNextFibonacciNumber(CalculateNextFibonacciRequest request);
 

@@ -1,11 +1,9 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Fibonacci.Api.Bll;
+﻿using Fibonacci.Api.Bll;
 using Fibonacci.Api.Bll.Notification;
 using Fibonacci.Api.Bll.Validation;
 using Fibonacci.Api.Contracts.Requests;
 using Fibonacci.Calculator.Services;
 using Fibonacci.Common.Validation;
-using FluentValidation;
 using Moq;
 using Serilog;
 using Xunit;
@@ -14,7 +12,7 @@ namespace Fibonacci.Api.Tests
 {
     public class FibonacciServiceTest
     {
-        private FibonacciService _service;
+        private FibonacciApiApiService _apiApiService;
         private Mock<IValidatorsFactory> _validatorsFacotyMock;
         private Mock<INotificationService> _notificationServiceMock;
         private Mock<ILogger> _loggerMock;
@@ -32,7 +30,7 @@ namespace Fibonacci.Api.Tests
             _validatorsFacotyMock.Setup(m => m.For<CalculateNextFibonacciRequest>())
                 .Returns(new CalculateNextFibonacciRequestValidator(new FibonacciCalculatorService()));
 
-            _service = new FibonacciService(
+            _apiApiService = new FibonacciApiApiService(
                 _validatorsFacotyMock.Object, 
                 _notificationServiceMock.Object,
                 _fibonacciCalculatorService.Object);
@@ -48,7 +46,7 @@ namespace Fibonacci.Api.Tests
                 TaskId = 1,
             };
 
-            await _service.CalculateNextFibonacciNumber(request);
+            await _apiApiService.CalculateNextFibonacciNumber(request);
         }
     }
 }

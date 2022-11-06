@@ -1,4 +1,4 @@
-﻿namespace Fibonacci.Client.Tasks
+﻿namespace Fibonacci.Client.Listener
 {
     public interface IListenerService
     {

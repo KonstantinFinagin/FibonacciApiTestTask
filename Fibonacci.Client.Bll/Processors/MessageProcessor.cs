@@ -1,5 +1,4 @@
 ﻿using Fibonacci.Api.Contracts.Requests;
-using Fibonacci.Calculator;
 using Fibonacci.Calculator.Services;
 using Fibonacci.Client.Bll.Services;
 using Fibonacci.Client.Contracts;

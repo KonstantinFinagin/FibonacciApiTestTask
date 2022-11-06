@@ -11,10 +11,7 @@ namespace Fibonacci.Api.Bll.Validation
         public CalculateNextFibonacciRequestValidator(IFibonacciCalculatorService calculator)
         {
             _calculator = calculator;
-        }
 
-        public CalculateNextFibonacciRequestValidator()
-        {
             When(a => a.Value == "1", () =>
             {
                 RuleFor(a => a.PreviousValue).NotNull().NotEmpty().WithMessage("PreviousValue value should not be null when calculating next value for 1");

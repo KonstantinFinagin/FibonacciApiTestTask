@@ -11,7 +11,7 @@ Covering:
 - Unit testing with XUnit (just a core module)
 - Swagger api description
 - Memoization for speeding up recursive calculations, BigInteger (Fibonacci calculation) (whoa, that was really interesting!)
-- Using Autofac, Serilog, EasyNetQ, Refit and other libs
+- Using Autofac, Serilog, EasyNetQ, Refit, FluentValidation and other libs
 
 Excluded:
 - Entity Framework

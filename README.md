@@ -22,6 +22,10 @@ Before running please setup:
 - RabbitMQ with Fibonaccy.Exchange (fanout) Fibonaccy.Queue (guest/guest) 
 - In Visual studio check appsettings.json in both apps
 
+Main classes to see (others are more or less of infrastrcture support):
+- FibonacciCalculatorService.cs
+- FibonacciApiService.cs (API)
+- MessageProcessor.cs (Client)
 
 ## Description:
 

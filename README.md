@@ -9,7 +9,7 @@ Covering:
 - RabbitMQ interservice communication
 - Modularization
 - Unit testing with XUnit
-- Using swagger
+- Swagger api description
 - Memoization for speeding up recursive calculations (Fibonacci calculation) (whoa, that was really interesting!)
 - Using Autofac, Serilog, EasyNetQ, Refit and other libs
 

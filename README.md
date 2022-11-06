@@ -9,8 +9,9 @@ Covering:
 - RabbitMQ interservice communication
 - Modularization
 - Unit testing with XUnit
+- Using swagger
 - Memoization for speeding up recursive calculations (Fibonacci calculation) (whoa, that was really interesting!)
-- Using Autofac, Serilog, EasyNetQ, and other libs
+- Using Autofac, Serilog, EasyNetQ, Refit and other libs
 
 Excluded:
 - Entity Framework
